@@ -1,144 +1,122 @@
 /* =========================================
-   부산기계공업고등학교 신입생 안내 - 스크립트
+   부산기계공업고등학교 홈페이지 스크립트
    ========================================= */
 
-// ===== 모바일 햄버거 메뉴 =====
-const hamburger = document.getElementById("hamburger");
-const navMenu = document.getElementById("navMenu");
+const mobileMenuButton = document.getElementById("mobileMenuBtn");
+const mainNav = document.getElementById("mainNav");
 
-hamburger.addEventListener("click", () => {
-  hamburger.classList.toggle("open");
-  navMenu.classList.toggle("open");
-});
-
-// 메뉴 클릭 시 모바일 메뉴 닫기
-navMenu.querySelectorAll(".nav-link").forEach((link) => {
-  link.addEventListener("click", () => {
-    hamburger.classList.remove("open");
-    navMenu.classList.remove("open");
+if (mobileMenuButton && mainNav) {
+  mobileMenuButton.addEventListener("click", () => {
+    const isOpen = mainNav.classList.toggle("open");
+    mobileMenuButton.setAttribute("aria-expanded", String(isOpen));
+    mobileMenuButton.setAttribute("aria-label", isOpen ? "메뉴 닫기" : "메뉴 열기");
   });
-});
 
-// ===== 스크롤 시 내비게이션 그림자 + 맨 위로 버튼 =====
-const navbar = document.getElementById("navbar");
-const toTop = document.getElementById("toTop");
-
-window.addEventListener("scroll", () => {
-  const y = window.scrollY;
-  navbar.classList.toggle("scrolled", y > 10);
-  toTop.classList.toggle("show", y > 500);
-  highlightNav();
-});
-
-toTop.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
-// ===== 스크롤 스파이 (현재 섹션 메뉴 강조) =====
-const sections = document.querySelectorAll("section[id]");
-const navLinks = document.querySelectorAll(".nav-link");
-
-function highlightNav() {
-  const scrollPos = window.scrollY + 120;
-  let currentId = "";
-  sections.forEach((sec) => {
-    if (scrollPos >= sec.offsetTop) currentId = sec.id;
-  });
-  navLinks.forEach((link) => {
-    link.classList.toggle("active", link.getAttribute("href") === "#" + currentId);
-  });
-}
-
-// ===== 스크롤 등장 애니메이션 (reveal) =====
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
+  mainNav.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener("click", () => {
+      mainNav.classList.remove("open");
+      mobileMenuButton.setAttribute("aria-expanded", "false");
+      mobileMenuButton.setAttribute("aria-label", "메뉴 열기");
     });
-  },
-  { threshold: 0.15 }
-);
-
-document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
-
-// ===== 통계 숫자 카운트업 =====
-const statObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target;
-      const target = Number(el.dataset.count);
-      const duration = 1400;
-      const start = performance.now();
-
-      function tick(now) {
-        const progress = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        el.textContent = Math.round(target * eased);
-        if (progress < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-      statObserver.unobserve(el);
-    });
-  },
-  { threshold: 0.5 }
-);
-
-document.querySelectorAll(".stat-num").forEach((el) => statObserver.observe(el));
-
-// ===== 입학식 카운트다운 =====
-// 다가오는 3월 2일(입학식)을 자동으로 계산
-function nextEntranceCeremony() {
-  const now = new Date();
-  let year = now.getFullYear();
-  let target = new Date(year, 2, 2, 9, 0, 0); // 3월 2일 09:00
-  if (now > target) {
-    target = new Date(year + 1, 2, 2, 9, 0, 0);
-  }
-  return target;
+  });
 }
 
-const ceremonyDate = nextEntranceCeremony();
-const cdDays = document.getElementById("cdDays");
-const cdHours = document.getElementById("cdHours");
-const cdMin = document.getElementById("cdMin");
-const cdSec = document.getElementById("cdSec");
+// 부산기계공업고등학교 2026년 10월 공식 식단
+const october2026Meals = {
+  "2026-10-01": {"breakfast":"백미밥|새우살무국 (5.6.9.13)|고단백고기완자전 (1.2.5.6.10.12.15.16.18)|상추겉절이 (5.6.13)|사각쥐포볶음 (5.6.13)|배추김치 (9)|우유 (2)","lunch":"기장밥|블루베리잼와플 (1.2.5.6)|한우미역국 (5.6.9.16)|돼지갈비찜 (5.6.10.13)|숙주나물무침|건취나물볶음 (5.6)|깍두기 (9)","dinner":"혼합잡곡밥 (5)|버섯국 (5.6.16)|근대된장나물 (5.6.13)|도토리묵무침 (5.6.13)|떡매갈비지짐/파채무침 (5.6.10.13.15.16)|깍두기 (9)"},
+  "2026-10-02": {"breakfast":"백미밥|어묵국 (1.5.6)|애호박볶음 (5.9)|모듬수제소시지볶음 (2.5.6.10.13.15.16.18)|구이김|알타리김치 (9)|우유 (2)","lunch":"흑미밥|아욱국 (5.6.9)|오이생채 (9.13)|이북식기름떡볶이 (2.5.6.9.16.18)|오븐직화닭구이 (1.5.6.12.15)|배추김치 (9)|골드키위","dinner":""},
+  "2026-10-06": {"breakfast":"햄에그프렌치토스트 (1.2.5.6.10.12)|허니버터아몬드 (2.5)|스트링치즈 (2)|사과|우유 (2)","lunch":"돼지국밥 (2.5.6.9.10.13.16)|부추겉절이 (9.13)|사각어묵볶음 (1.5.6.13.18)|깻잎튀김 (1.5.6.10.15.16)|깍두기 (9)|초코링비요뜨 (2)","dinner":"기장밥|경상도식소고기국 (5.6.9.16)|코다리조림 (5.6.13)|다시마채무침 (9.13)|사과무생채 (13)|배추김치 (9)"},
+  "2026-10-07": {"breakfast":"백미밥|맑은콩나물국 (5.6.9)|계란찜 (1.2.5.6.9)|고추참치야채볶음 (5.6.12.13)|아귀건포채볶음 (1.5.6.13)|깍두기 (9)|우유 (2)","lunch":"혼합잡곡밥 (5)|들깨시락국 (5.6)|불족발숙주볶음 (10)|오이고추된장무침 (5.6)|고추장매실장아찌 (5)|알타리김치 (9)|방울토마토 (12)","dinner":"셀프수제치킨불고기버거 (1.2.5.6.10.12.13.15.16)|콘샐러드 (1.2.5.6.10.13.15.16)|오이피클|감자튀김/케찹 (5.6.12)|쿨피스(복숭아맛) (11.13)"},
+  "2026-10-08": {"breakfast":"백미밥|가자미살미역국 (5.6.9)|소고기곤약장조림 (1.5.6.13.16)|브로컬리숙회 (5.6.13)|배추김치 (9)|우유 (2)","lunch":"흑미밥|우리밀초코케익 (1.2.5.6)|오징어무국 (5.6.17)|검은콩조림 (5.6.13)|안동찜닭 (5.6.13.15)|느타리호박볶음 (5.6)|석박지 (9)","dinner":"강황밥|근대국 (5.6.9)|시금치나물 (5.6)|골뱅이야채무침 (5.6.13)|해물부추전/양념장 (1.5.6.9.13.17.18)|배추김치 (9)"},
+  "2026-10-09": {"breakfast":"백미밥|한우우거지국 (5.6.16)|김자반|콩닥콩닥심쿵햄구이 (1.2.5.6.10.15.16)|배추김치 (9)|딸기요거트 (2)","lunch":"짜장밥 (5.6.10.13.16)|짬뽕국 (1.5.6.8.9.10.13.16.17.18)|단무지무침 (13)|군만두 (1.5.6.10.13.16.18)|배추김치 (9)|유기농사과주스 (13)","dinner":"김치볶음밥 (1.2.5.6.9.10.13.15.16.18)|우동장국 (1.2.5.6.9.13)|일미무침 (1.5.6.13.17)|상하이지파이 (1.2.5.6.12.15.18)|깍두기 (9)|쁘띠첼귤맛"},
+  "2026-10-10": {"breakfast":"백미밥|새우살무국 (5.6.9.13)|멸치고추장볶음 (5.6.13)|소고기육전 (1.5.6.10.15.18)|배추김치 (9)|우유 (2)","lunch":"백미밥|꽃게된장찌개 (5.6.8.9)|단배추나물 (5.6.13)|완자어묵볶음 (1.5.6.13.18)|돈육김치두루치기 (5.6.9.10.13)|깍두기 (9)","dinner":"백미밥|감자수제비국 (5.6.9)|스크램블에그 (1.2.5.13)|주꾸미볶음 (5.6.13)|다시마부각 (5.6)|배추김치 (9)"},
+  "2026-10-11": {"breakfast":"양송이스프 (2.5.6.13.16)|모닝빵/딸기잼 (1.2.5.6.13)|멕시칸샐러드 (1.2.5.6.8.10.13.15.16)|방울토마토 (12)|우유 (2)|씨리얼 (5.6)","lunch":"계란볶음밥 (1.2.5.6.13.15.16)|마라탕 (2.5.6.10.13.15.16.18)|오이양파무침 (5.6.13)|단무지 (13)|고구마롤춘권 (1.5.6)","dinner":"백미밥|경상도식소고기국 (5.6.9.16)|양배추샐러드 (1.5.12.13)|수제7겹돈까스 (1.5.6.10.12.13.18)|배추김치 (9)|생깻잎지 (9)"},
+  "2026-10-12": {"breakfast":"바질치즈치아바타 (1.2.5.6)|삶은계란 (1)|초코씨리얼 (2.5.6)|사과|우유 (2)","lunch":"흑미밥|씨앗호떡 (1.2.4.5.6)|오징어무국 (5.6.17)|궁채무침 (5.6.13)|연탄불고기 (2.5.6.9.10.13.16.17.18)|배추김치 (9)|양배추,다시마쌈/쌈장 (5.6.13)","dinner":"참치마요덮밥 (1.2.5.6.12.13)|미소된장국 (5.6.9)|건새우볶음 (5.6.9.13)|소떡소떡꼬치 (1.5.6.10.15.16)|배추김치 (9)|오렌지주스 (13)"},
+  "2026-10-13": {"breakfast":"백미밥|북어국 (5.6.9)|두부찜/양념장 (5)|일미무침 (1.5.6.13.17)|콩나물무침 (5.6)|김치볶음 (9.13)|우유 (2)","lunch":"유부초밥 (5)|잔치국수 (1.5.6.9)|스윗소코순살치킨 (1.5.6.15)|배추김치 (9)|골드키위","dinner":"기장밥|우엉채조림 (5.6.13)|돈육김치찌개 (5.6.9.10.13)|무항생제오리불고기 (5.6.13)|깍두기 (9)|깻잎/쌈무/쌈장 (5.6.13)"},
+  "2026-10-14": {"breakfast":"백미밥|미니메이플피칸파이 (1.2.5.6.14)|한우설렁탕 (5.6.9.16)|연근조림 (5.6.13)|부추겉절이 (9.13)|깍두기 (9)|우유 (2)","lunch":"혼합잡곡밥 (5)|베이컨단호박크림뇨끼 (2.5.9.10.13)|양배추샐러드 (1.5.12.13)|고추장매실장아찌 (5)|우리밀통블럭치즈반달돈까스 (1.2.5.6.10.12.13)|깍두기 (9)|바나나","dinner":"우동장국 (1.2.5.6.9.13)|단무지 (13)|순대/쌈장 (2.5.6.9.10.13.16)|떡볶이 (1.5.6.13)|김말이튀김 (1.5.6.16)|오징어튀김/초간장 (1.5.6.17)"},
+  "2026-10-15": {"breakfast":"백미밥|김치국 (5.6.9)|숙주나물무침|사각어묵볶음 (1.5.6.13.18)|오리스테이크 (1.2.5.6.12.13.16)|깍두기 (9)|우유 (2)","lunch":"기장밥|붕어빵 (1.2.5.6.16)|순두부찌개 (5.6.9.10.13.18)|꽁치김치조림 (5.6.9.13)|상추겉절이 (5.6.13)|방울오징어곤약조림 (5.6.13.17)|알타리김치 (9)","dinner":"소고기우엉채볶음밥 (5.6.13.16)|계란파국 (1.5.6.9)|장터잡채만두 (1.2.5.6.10.13.16.18)|오이스틱액젓무침 (9.13)|배추김치 (9)|샤인머스켓"},
+  "2026-10-16": {"breakfast":"마늘생크림삼각토스트 (1.2.5.6)|크림스프 (2.5.6.13.16)|꿀토마토 (12.13)|씨리얼 (5.6)|우유 (2)","lunch":"차조밥|청양시락국 (5.6)|도토리묵무침 (5.6.13)|연근흑임자샐러드 (1.5.13)|닭목살구이/파채무침 (5.6.13.15)|배추김치 (9)","dinner":""},
+  "2026-10-19": {"breakfast":"햄에그프렌치토스트 (1.2.5.6.10.12)|허니버터아몬드 (2.5)|스트링치즈 (2)|사과|우유 (2)","lunch":"카레라이스 (1.2.5.6.10.12.13.16.18)|우동장국 (1.2.5.6.9.13)|멸치고추장볶음 (5.6.13)|바싹불고기퀘사디아 (1.2.5.6.10.15.16.18)|배추김치 (9)|골드키위","dinner":"혼합잡곡밥 (5)|부대찌개 (1.2.5.6.9.10.13.15.16)|안동찜닭 (5.6.13.15)|오이생채 (9.13)|미역줄기볶음 (5.6)|깍두기 (9)"},
+  "2026-10-20": {"breakfast":"백미밥|감자국 (5.6.9)|미나리나물 (5.6)|아귀건포채볶음 (1.5.6.13)|돈육고추장볶음 (5.6.10.13)|배추김치 (9)|우유 (2)","lunch":"흑미밥|근대국 (5.6.9)|상추/쌈무/쌈장 (5.6.13)|파겉절이 (5.6.13)|마늘삼겹살구이 (1.2.3.4.5.6.7.8.9.10.11.12.13.14)|배추김치 (9)|골드파인애플","dinner":"차조밥|마라탕 (2.5.6.10.13.15.16.18)|햄프시드갈비살미트볼 (1.2.5.6.10.13.15.16)|황도요거트그린샐러드 (1.2.5.6.11.12)|고구마롤춘권/칠리소스 (1.5.6.8.12.13)|배추김치 (9)"},
+  "2026-10-21": {"breakfast":"백미밥|한우미역국 (5.6.9.16)|무생채 (5.6.13)|스팸구이 (1.2.5.6.10.15.16)|배추김치 (9)|딸기우유 (2)","lunch":"기장밥|돈등뼈감자탕 (5.6.9.10.13)|다시마채무침 (9.13)|완자어묵볶음 (1.5.6.13.18)|짬뽕맛군만두/초간장 (1.5.6.8.9.10.13.16.17.18)|석박지 (9)|수제그릭요거트 (1.2.5.6)","dinner":"새우크림파스타 (1.2.5.6.9.10.13.16)|미트러시피자 (1.2.5.6.10.12.13.15.16)|그린샐러드/발사믹드레싱 (1.2.5.6.12)|오이피클|애플민트스파클링제로 (5.13)"},
+  "2026-10-22": {"breakfast":"백미밥|꽃게찌개 (5.6.8.9)|소고기장조림 (1.5.6.13.16)|브로컬리숙회 (5.6.13)|김자반|깍두기 (9)|우유 (2)","lunch":"혼합잡곡밥 (5)|육개장 (5.6.16)|오징어야채무침 (5.6.13.17)|건새우마늘종볶음 (5.6.9.13)|부추전/양념장 (1.5.6.9.13.17.18)|배추김치 (9)","dinner":"기장밥|차돌박이된장찌개 (5.6.9.16)|우엉채조림 (5.6.13)|상추겉절이 (5.6.13)|무항생제오리불고기 (5.6.13)|배추김치 (9)"},
+  "2026-10-23": {"breakfast":"크림치즈갈릭브레드 (1.2.5.6)|옥수수스프 (2.5.6.13.16)|삶은계란 (1)|골드키위|우유 (2)","lunch":"콩나물밥/꼬막양념장 (5.6.13.16.18)|둥지오란다 (1.2.5.6.13.16)|새우살무국 (5.6.9.13)|새송이버섯볶음 (5.6)|오븐직화닭구이 (1.5.6.12.15)|배추김치 (9)","dinner":"흑미밥|얼큰버섯국 (5.6.16)|양배추샐러드 (1.5.12.13)|진미채무침 (1.5.6.13.17)|우리밀통블럭치즈반달돈까스 (1.2.5.6.10.12.13)|깍두기 (9)"},
+  "2026-10-24": {"breakfast":"백미밥|맑은소고기국 (5.6.9.16)|숙주나물무침|애호박볶음 (5.9)|칼집비엔나볶음/케찹 (2.5.6.10.12.13.15.16.18)|배추김치 (9)|우유 (2)","lunch":"김치볶음밥 (1.2.5.6.9.10.13.15.16.18)|계란파국 (1.5.6.9)|그린샐러드/오리엔탈드레싱 (5.6.12.13)|관자새우살꼬치 (5.9.13.18)|알타리김치 (9)","dinner":"백미밥|감자수제비국 (5.6.9)|게맛살겨자무침 (1.5.6.8.13)|파채무침 (5.6.13)|언양식반달떡갈비 (5.6.10.13.15.16.18)|배추김치 (9)"},
+  "2026-10-25": {"breakfast":"백미밥|청양시락국 (5.6)|두부찜/양념장 (5)|쪽파무생채 (5.6.13)|소고기육전 (1.5.6.10.15.18)|배추김치 (9)|우유 (2)","lunch":"우동장국 (1.2.5.6.9.13)|옥수수샐러드 (1.2.5.6.10.13.15.16)|단무지 (13)|쫄면 (5.6.13)|군만두/초간장 (1.5.6.10.13.16.18)|유기농사과주스 (13)","dinner":"백미밥|돈육낙지새우볶음 (2.5.6.9.10.13.16.18)|콩나물국 (5.6.9)|근대된장나물 (5.6.13)|계란말이 (1.5)|배추김치 (9)"},
+  "2026-10-26": {"breakfast":"백미밥|김치국 (5.6.9)|일미무침 (1.5.6.13.17)|김자반|스크램블에그 (1.2.5.13)|깍두기 (9)|우유 (2)","lunch":"돼지국밥 (2.5.6.9.10.13.16)|부추겉절이 (9.13)|오이스틱,양파/쌈장 (5.6.13)|부들어묵볶음 (1.5.6.13.18)|깍두기 (9)|쁘띠첼귤맛","dinner":"흑미밥|들깨무채국 (5.6.9)|장터잡채만두 (1.2.5.6.10.13.16.18)|닭볶음탕 (2.5.6.13.15.18)|알타리김치 (9)|생깻잎지 (9)"},
+  "2026-10-27": {"breakfast":"백미밥|물만두국 (1.5.6.9.10.16.18)|검은콩조림 (5.6.13)|시금치나물 (5.6)|고추참치야채볶음 (5.6.12.13)|알타리김치 (9)|우유 (2)","lunch":"양송이스프/빠네 (2.5.6.13.16)|볼로냐치즈오븐스파게티 (2.5.6.10.12.13.15.16)|황도요거트그린샐러드 (1.2.5.6.11.12)|오이피클|방울토마토 (12)|쿨피스(복숭아맛) (11.13)","dinner":"차조밥|감자조림 (5.6.13)|돈육김치찌개 (5.6.9.10.13)|명엽채볶음 (5.6.13)|오리스테이크 (1.2.5.6.12.13.16)|깍두기 (9)"},
+  "2026-10-28": {"breakfast":"백미밥|닭곰탕 (15)|콩나물무침 (5.6)|도라지오이무침 (5.6.13)|방울오징어곤약조림 (5.6.13.17)|배추김치 (9)|우유 (2)","lunch":"기장밥|청양시락국 (5.6)|우엉편조림 (5.6.13)|애호박볶음 (5.9)|한돈된장불고기/파채무침 (2.5.6.10.12.13)|배추김치 (9)","dinner":"백미밥(석식)|한우설렁탕 (5.6.9.16)|계란찜 (1.2.5.6.9)|골뱅이야채무침 (5.6.13)|아귀건포채볶음 (1.5.6.13)|깍두기 (9)"},
+  "2026-10-29": {"breakfast":"백미밥|한우우거지국 (5.6.16)|꼬막미나리무침 (5.6.13.18)|모듬수제소시지볶음 (2.5.6.10.13.15.16.18)|알타리김치 (9)|우유 (2)","lunch":"혼합잡곡밥 (5)|들깨미역국 (5.6.9)|도토리묵무침 (5.6.13)|버섯잡채 (5.6.10.13)|생선까스/타르타르소스(23공통유치원) (1.5.6.13)|석박지 (9)","dinner":"유부장국 (1.2.5.6.9.13)|사각쥐포볶음 (5.6.13)|마파두부덮밥 (5.6.10.12.13.18)|빅킬바사찰핫도그 (1.2.5.6.10.12.13.16)|배추김치 (9)|오렌지주스 (13)"},
+  "2026-10-30": {"breakfast":"백미밥|모닝빵/딸기잼 (1.2.5.6.13)|김치국 (5.6.9)|으깬감자샐러드 (1.2.5.6.10.13.15.16)|구름구름너비아니 (1.2.5.6.10.13.15.16.18)|알타리김치 (9)|우유 (2)","lunch":"흑미밥|오징어무국 (5.6.17)|보쌈한상 (5.6.9.10)|궁채무침 (5.6.13)|상추,오이고추/쌈장 (5.6.13)|배추김치 (9)|바나나","dinner":"백미밥|꽃게된장찌개 (5.6.8.9)|미나리나물 (5.6)|무항생제오리불고기 (5.6.13)|배추김치 (9)|쌈무"},
+  "2026-10-31": {"breakfast":"애플턴오버파이 (1.2.5.6)|삶은계란 (1)|사과|씨리얼 (5.6)|우유 (2)","lunch":"기장밥|한우미역국 (5.6.9.16)|돼지갈비찜 (5.6.10.13)|숙주나물무침|건취나물볶음 (5.6)|배추김치 (9)","dinner":"혼합잡곡밥 (5)|버섯국 (5.6.16)|근대된장나물 (5.6.13)|도토리묵무침 (5.6.13)|떡매갈비지짐 (5.6.10.15.16)|배추김치 (9)"}
+};
 
-function pad(n) {
-  return String(n).padStart(2, "0");
+const mealTimeNames = {
+  breakfast: "조식",
+  lunch: "중식",
+  dinner: "석식",
+};
+
+const mealTimeTitle = document.getElementById("mealTimeTitle");
+const mealMenuList = document.getElementById("mealMenuList");
+const mealDateSelect = document.getElementById("mealDateSelect");
+const mealTabButtons = document.querySelectorAll(".meal-tab-btn[data-meal-time]");
+let selectedMealTime = "lunch";
+
+if (mealDateSelect) {
+  const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
+  const mealDates = Object.keys(october2026Meals).sort();
+  mealDateSelect.replaceChildren(...mealDates.map((date) => {
+    const [, , day] = date.split("-").map(Number);
+    const weekday = weekdays[new Date(2026, 9, day).getDay()];
+    const option = document.createElement("option");
+    option.value = date;
+    option.textContent = `10월 ${day}일 (${weekday})`;
+    return option;
+  }));
+  mealDateSelect.value = mealDates[0];
 }
 
-function updateCountdown() {
-  const diff = ceremonyDate - new Date();
-  if (diff <= 0) {
-    cdDays.textContent = "D-Day";
-    cdHours.textContent = "🎉";
-    cdMin.textContent = "🎉";
-    cdSec.textContent = "🎉";
+function updateMealDisplay() {
+  if (!mealMenuList) return;
+
+  const meals = october2026Meals[mealDateSelect?.value]?.[selectedMealTime]
+    ?.split("|")
+    .filter(Boolean) ?? [];
+
+  if (meals.length === 0) {
+    const emptyMessage = document.createElement("li");
+    emptyMessage.className = "meal-empty";
+    emptyMessage.textContent = "선택한 날짜에는 해당 식단 정보가 없습니다.";
+    mealMenuList.replaceChildren(emptyMessage);
     return;
   }
-  const s = Math.floor(diff / 1000);
-  cdDays.textContent = Math.floor(s / 86400);
-  cdHours.textContent = pad(Math.floor((s % 86400) / 3600));
-  cdMin.textContent = pad(Math.floor((s % 3600) / 60));
-  cdSec.textContent = pad(s % 60);
+
+  mealMenuList.replaceChildren(...meals.map((meal) => {
+    const item = document.createElement("li");
+    item.textContent = meal;
+    return item;
+  }));
 }
 
-updateCountdown();
-setInterval(updateCountdown, 1000);
+function selectMealTime(mealTime) {
+  if (!mealTimeNames[mealTime]) return;
+  selectedMealTime = mealTime;
 
-// ===== 신입생 가이드 탭 =====
-const tabButtons = document.querySelectorAll(".tab-btn");
-const tabPanels = document.querySelectorAll(".tab-panel");
-
-tabButtons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    tabButtons.forEach((b) => b.classList.remove("active"));
-    tabPanels.forEach((p) => p.classList.remove("active"));
-    btn.classList.add("active");
-    document.getElementById(btn.dataset.tab).classList.add("active");
+  mealTabButtons.forEach((button) => {
+    const isActive = button.dataset.mealTime === mealTime;
+    button.classList.toggle("active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
   });
+
+  if (mealTimeTitle) mealTimeTitle.textContent = `🍱 ${mealTimeNames[mealTime]} 메뉴`;
+  updateMealDisplay();
+}
+
+mealTabButtons.forEach((button) => {
+  button.addEventListener("click", () => selectMealTime(button.dataset.mealTime));
 });
+
+if (mealDateSelect) mealDateSelect.addEventListener("change", updateMealDisplay);
+
+updateMealDisplay();

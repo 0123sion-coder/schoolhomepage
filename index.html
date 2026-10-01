@@ -1,344 +1,132 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>부산기계공업고등학교 - 신입생 안내</title>
-  <meta name="description" content="부산기계공업고등학교에 입학하는 신입생을 위한 안내 홈페이지" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>부산기계공업고등학교 - 공식 홈페이지</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ===== 상단 내비게이션 ===== -->
-  <header class="navbar" id="navbar">
-    <div class="container nav-inner">
-      <a href="#home" class="logo">
-        <span class="logo-gear">⚙</span>
-        <span class="logo-text">부산기계공업고등학교<small>신입생 안내</small></span>
-      </a>
-      <nav class="nav-menu" id="navMenu">
-        <a href="#about" class="nav-link">학교 소개</a>
-        <a href="#departments" class="nav-link">학과 소개</a>
-        <a href="#guide" class="nav-link">신입생 가이드</a>
-        <a href="#clubs" class="nav-link">동아리</a>
-        <a href="#faq" class="nav-link">FAQ</a>
-        <a href="#contact" class="nav-link">오시는 길</a>
+  <!-- 상단 헤더 및 대메뉴 -->
+  <header class="header">
+    <div class="container header-container">
+      <h1 class="logo"><a href="index.html">부산기계공업고등학교</a></h1>
+      <nav class="gnb" id="mainNav">
+        <ul>
+          <li class="dropdown">
+            <a href="#departments">학과 소개</a>
+            <ul class="dropdown-menu">
+              <li><a href="dept-mech.html">기계시스템과</a></li>
+              <li><a href="dept-plant.html">설비시스템과</a></li>
+              <li><a href="dept-mecha.html">스마트팩토리과</a></li>
+              <li><a href="dept-elec.html">전기과</a></li>
+            </ul>
+          </li>
+          <li><a href="#notice-section">학교알림</a></li>
+          <li><a href="#meal-section">급식안내</a></li>
+        </ul>
       </nav>
-      <button class="hamburger" id="hamburger" aria-label="메뉴 열기">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mainNav">☰</button>
     </div>
   </header>
 
-  <!-- ===== 히어로 ===== -->
-  <section class="hero" id="home">
-    <div class="hero-gears" aria-hidden="true">
-      <span class="gear gear-1">⚙</span>
-      <span class="gear gear-2">⚙</span>
-      <span class="gear gear-3">⚙</span>
-      <span class="gear gear-4">⚙</span>
-    </div>
-    <div class="container hero-inner">
-      <p class="hero-badge">🎓 2027학년도 신입생 여러분, 환영합니다!</p>
-      <h1 class="hero-title">
-        미래를 만드는 <em>기계</em>의 꿈,<br />
-        여기서 <em>펼쳐집니다</em>
-      </h1>
-      <p class="hero-sub">
-        부산기계공업고등학교는 전공 실습과 현장 실습을 통해<br />
-        대한민국 최고의 기술 인재를 키워냅니다.
-      </p>
-      <div class="hero-actions">
-        <a href="#guide" class="btn btn-primary">신입생 가이드 보기</a>
-        <a href="#departments" class="btn btn-ghost">학과 알아보기</a>
-      </div>
-
-      <!-- 개학 카운트다운 -->
-      <div class="countdown-box reveal">
-        <p class="countdown-label">입학식(D-day)까지</p>
-        <div class="countdown" id="countdown">
-          <div class="cd-item"><strong id="cdDays">--</strong><span>일</span></div>
-          <div class="cd-item"><strong id="cdHours">--</strong><span>시간</span></div>
-          <div class="cd-item"><strong id="cdMin">--</strong><span>분</span></div>
-          <div class="cd-item"><strong id="cdSec">--</strong><span>초</span></div>
-        </div>
+  <!-- 메인 비주얼 배너 -->
+  <section class="main-banner">
+    <div class="banner-content">
+      <img class="banner-logo" src="images.png" alt="부산기계공업고등학교 교표" width="180" height="180">
+      <div>
+        <h2>대한민국 기술 인재의 요람, 부산기계공업고등학교</h2>
+        <p>창의성과 기술력을 겸비한 미래 영마이스터를 육성합니다.</p>
       </div>
     </div>
   </section>
 
-  <!-- ===== 학교 소개 ===== -->
-  <section class="section" id="about">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="section-tag">ABOUT</span>
-        <h2 class="section-title">우리 학교를 소개합니다</h2>
-        <p class="section-desc">
-          반세기 동안 부산의 산업을 이끌어 온 기계 기술 인재의 요람입니다.
-        </p>
+  <!-- 메인 콘텐츠 영역 -->
+  <main class="main-content container">
+    <!-- 신입생 입학전형 및 주요 공지사항 -->
+    <section class="card notice-card" id="notice-section">
+      <div class="card-header">
+        <h3>📢 신입생 입학전형 안내</h3>
+        <a href="#" class="more-btn">+ 더보기</a>
+      </div>
+      <ul class="notice-list">
+        <li>
+          <a href="#"><strong>[모집]</strong> 신입생 원서접수 기간</a>
+          <span class="date-highlight">10월 19일 ~ 10월 22일</span>
+        </li>
+        <li>
+          <a href="#"><strong>[발표]</strong> 1차 합격자(서류전형) 발표</a>
+          <span class="date-highlight">10.28(수)</span>
+        </li>
+        <li>
+          <a href="#"><strong>[전형]</strong> 2차 전형(면접 및 심층 평가) 실시</a>
+          <span class="date-highlight">10.30(금)</span>
+        </li>
+        <li>
+          <a href="#">2026학년도 신입생 입학전형 요강 상세 안내</a>
+          <span class="date">2026.08.25</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 10월 급식 식단표 -->
+    <section class="card meal-card" id="meal-section">
+      <div class="card-header">
+        <h3>2026년 10월 급식 식단표</h3>
+        <select id="mealDateSelect" class="date-select" aria-label="급식 날짜 선택">
+          <option value="2026-10-01" selected>10월 1일 (목)</option>
+        </select>
       </div>
 
-      <div class="stats-grid">
-        <div class="stat-card reveal">
-          <span class="stat-icon">🏫</span>
-          <strong class="stat-num" data-count="50">0</strong><span class="stat-plus">+</span>
-          <p>년의 전통</p>
-        </div>
-        <div class="stat-card reveal">
-          <span class="stat-icon">🔧</span>
-          <strong class="stat-num" data-count="4">0</strong><span class="stat-plus">개</span>
-          <p>전문 학과 운영</p>
-        </div>
-        <div class="stat-card reveal">
-          <span class="stat-icon">💼</span>
-          <strong class="stat-num" data-count="90">0</strong><span class="stat-plus">%</span>
-          <p>취업률 (대기업 포함)</p>
-        </div>
-        <div class="stat-card reveal">
-          <span class="stat-icon">🏆</span>
-          <strong class="stat-num" data-count="120">0</strong><span class="stat-plus">+</span>
-          <p>기능경기대회 수상</p>
-        </div>
+      <div class="meal-tabs">
+        <button class="meal-tab-btn" type="button" data-meal-time="breakfast" aria-pressed="false">조식</button>
+        <button class="meal-tab-btn active" type="button" data-meal-time="lunch" aria-pressed="true">중식</button>
+        <button class="meal-tab-btn" type="button" data-meal-time="dinner" aria-pressed="false">석식</button>
       </div>
 
-      <div class="about-grid">
-        <div class="about-card reveal">
-          <h3>🎯 교육 목표</h3>
-          <p>4차 산업혁명 시대에 맞춰 이론과 실습을 겸비한 <strong>현장 중심 맞춤형 교육</strong>을 실시합니다. 국가기술자격증 취득을 지원하여 졸업과 동시에 취업이 가능하도록 돕습니다.</p>
-        </div>
-        <div class="about-card reveal">
-          <h3>🏭 산학협력</h3>
-          <p>지역 대기업·중견기업과 산학협력 협약을 맺고 <strong>현장실습 및 채용 연계</strong> 프로그램을 운영합니다. 1학년 때부터 진로 상담과 기업 탐방이 시작됩니다.</p>
-        </div>
-        <div class="about-card reveal">
-          <h3>🛠 최신 실습 설비</h3>
-          <p>CNC 머시닝센터, 3D 프린터, 산업용 로봇 등 <strong>최신 장비를 갖춘 실습실</strong>에서 직접 손으로 배우는 수업이 이루어집니다.</p>
-        </div>
+      <div class="meal-display-box">
+        <h4 class="meal-type-title" id="mealTimeTitle">🍱 중식 메뉴</h4>
+        <ul class="meal-menu" id="mealMenuList">
+          <li class="meal-empty">선택한 날짜의 식단 정보가 없습니다.</li>
+        </ul>
       </div>
-    </div>
-  </section>
+      <p class="allergy-info">* 부산기계공업고등학교 공식 식단 기준 · 메뉴 괄호 숫자는 알레르기 정보입니다.</p>
+      <p class="allergy-info"><a href="https://school.busanedu.net/bmt-h/dv/dietView/selectDietCalendarView.do?mi=605226" target="_blank" rel="noopener noreferrer">공식 월간 식단표 보기 ↗</a></p>
+    </section>
 
-  <!-- ===== 학과 소개 ===== -->
-  <section class="section section-alt" id="departments">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="section-tag">DEPARTMENTS</span>
-        <h2 class="section-title">학과 소개</h2>
-        <p class="section-desc">나에게 맞는 전공을 찾아보세요. 모든 학과가 취업과 진학을 함께 준비합니다.</p>
+    <!-- 학과 안내 요약 -->
+    <section class="card dept-overview-card" id="departments">
+      <div class="card-header">
+        <h3>🛠️ 학과별 교육 안내</h3>
+        <span class="more-btn">4개 전공</span>
       </div>
+      <ul class="dept-overview-list">
+        <li>
+          <a href="dept-mech.html"><strong>⚙️ 기계시스템과</strong><span>기계 설계·CAD/CAM·정밀가공·생산자동화</span><em>학과 소개 보기 →</em></a>
+        </li>
+        <li>
+          <a href="dept-plant.html"><strong>🔥 설비시스템과</strong><span>용접·배관·공조냉동·산업설비</span><em>학과 소개 보기 →</em></a>
+        </li>
+        <li>
+          <a href="dept-mecha.html"><strong>🤖 스마트팩토리과</strong><span>로봇·PLC·자동제어·스마트팩토리</span><em>학과 소개 보기 →</em></a>
+        </li>
+        <li>
+          <a href="dept-elec.html"><strong>⚡ 전기과</strong><span>전력설비·PLC·신재생에너지</span><em>학과 소개 보기 →</em></a>
+        </li>
+      </ul>
+    </section>
+  </main>
 
-      <div class="dept-grid">
-        <article class="dept-card reveal">
-          <div class="dept-icon">⚙️</div>
-          <h3>기계과</h3>
-          <p>기계의 설계·제작·가공까지 전 과정을 배웁니다. CNC 선반, 밀링 가공 등 정밀 기계 기술을 익힙니다.</p>
-          <ul>
-            <li>기계제도 / 기계설계</li>
-            <li>CNC 가공 실습</li>
-            <li>컴퓨터응용조각(CAD/CAM)</li>
-          </ul>
-          <span class="dept-tag">관련 자격증: 컴퓨터응용조각기능사, 기계설계산업기사</span>
-        </article>
-
-        <article class="dept-card reveal">
-          <div class="dept-icon">🔌</div>
-          <h3>전자기기과</h3>
-          <p>전자 회로부터 임베디드 시스템까지, 미래 전자산업의 핵심 기술을 배웁니다.</p>
-          <ul>
-            <li>전자회로 / 디지털전자</li>
-            <li>마이크로프로세서 실습</li>
-            <li>IoT 기기 제작</li>
-          </ul>
-          <span class="dept-tag">관련 자격증: 전자기기산업기사, 전자CAD산업기사</span>
-        </article>
-
-        <article class="dept-card reveal">
-          <div class="dept-icon">🤖</div>
-          <h3>전자제어과</h3>
-          <p>공장 자동화와 로봇 제어, 스마트 팩토리의 두뇌 역할을 하는 기술을 배웁니다.</p>
-          <ul>
-            <li>PLC 제어 실습</li>
-            <li>산업용 로봇 운용</li>
-            <li>센서 및 계측</li>
-          </ul>
-          <span class="dept-tag">관련 자격증: 전자기능사, 산업전자기사</span>
-        </article>
-
-        <article class="dept-card reveal">
-          <div class="dept-icon">🚗</div>
-          <h3>특수목적고 체육선수과</h3>
-          <p>운동과 학업을 함께하는 특수목적과정으로, 선수 생활과 전공 실습을 병행합니다.</p>
-          <ul>
-            <li>체육 특기 적성 교육</li>
-            <li>기계 기초 실습 병행</li>
-            <li>선수 진로 지원</li>
-          </ul>
-          <span class="dept-tag">국가대표·프로 선수 다수 배출</span>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 신입생 가이드 (탭) ===== -->
-  <section class="section" id="guide">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="section-tag">GUIDE</span>
-        <h2 class="section-title">신입생 가이드</h2>
-        <p class="section-desc">새 학교, 처음이라 막막하죠? 이것만 알면 걱정 끝!</p>
-      </div>
-
-      <div class="tabs reveal">
-        <div class="tab-buttons" role="tablist">
-          <button class="tab-btn active" data-tab="tab1">🕐 하루 일과</button>
-          <button class="tab-btn" data-tab="tab2">🎒 준비물</button>
-          <button class="tab-btn" data-tab="tab3">✅ 입학 전 체크리스트</button>
-          <button class="tab-btn" data-tab="tab4">💡 생활 꿀팁</button>
-        </div>
-
-        <div class="tab-panel active" id="tab1">
-          <table class="timetable">
-            <tr><th>시간</th><th>내용</th></tr>
-            <tr><td>08:10</td><td>등교 · 아침 인사</td></tr>
-            <tr><td>08:30 ~ 09:20</td><td>조례 · 1교시</td></tr>
-            <tr><td>09:20 ~ 12:30</td><td>교과 수업 (3~4교시)</td></tr>
-            <tr><td>12:30 ~ 13:20</td><td>점심시간 (급식실: 학교 뒤 동) 🍚</td></tr>
-            <tr><td>13:20 ~ 16:00</td><td>오후 수업 · 전공 실습</td></tr>
-            <tr><td>16:00 ~ 17:00</td><td>청소 · 동아리 활동</td></tr>
-            <tr><td>17:00 이후</td><td>방과후 프로그램 / 귀가</td></tr>
-          </table>
-        </div>
-
-        <div class="tab-panel" id="tab2">
-          <ul class="check-list">
-            <li>🏫 교복 (지정 복장 · 겨울/여름)</li>
-            <li>👟 실습용 안전화 · 작업복 (실습실 지정)</li>
-            <li>📝 필통, 노트 등 기본 문구류</li>
-            <li>🪪 신분증, 입학허가서 사본</li>
-            <li>💰 급식비 납부 (학교 안내 공지 확인)</li>
-            <li>📱 학교 홈페이지 · 알리미 앱 설치</li>
-          </ul>
-          <p class="tab-note">※ 안전화·작업복은 실습 안전을 위해 반드시 착용해야 합니다!</p>
-        </div>
-
-        <div class="tab-panel" id="tab3">
-          <ul class="check-list">
-            <li>입학식 일시 확인 (본 홈페이지 상단 카운트다운 참고)</li>
-            <li>반 배정 결과 확인 (입학생 알리미 공지)</li>
-            <li>교복·체육복 주문 (지정 업체, 입학 전 주문)</li>
-            <li>예비 중1 → 신입생 오리엔테이션 참석</li>
-            <li>기초 학력 진단 자료 제출 (안내문 확인)</li>
-            <li>학교 앱 가입 및 학부모 연락처 등록</li>
-          </ul>
-        </div>
-
-        <div class="tab-panel" id="tab4">
-          <div class="tip-grid">
-            <div class="tip-card"><strong>🤝 선배에게 물어보기</strong><p>1학년 부장선생님, 담임선생님, 그리고 2·3학년 선배들이 항상 도와줄 준비가 되어 있습니다.</p></div>
-            <div class="tip-card"><strong>🥘 급식 신청</strong><p>월초에 급식 신청을 하며, 잔반 줄이기 캠페인에 함께 참여해 주세요.</p></div>
-            <div class="tip-card"><strong>🛡 안전 수칙</strong><p>실습실에서는 지정된 보호구를 반드시 착용하고 선생님 지시를 따라야 합니다.</p></div>
-            <div class="tip-card"><strong>📚 자격증 미리 준비</strong><p>1학년 때부터 방과후 자격증반을 활용하면 졸업 전 취업이 한결 수월해집니다.</p></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 동아리 ===== -->
-  <section class="section section-alt" id="clubs">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="section-tag">CLUBS</span>
-        <h2 class="section-title">동아리 소개</h2>
-        <p class="section-desc">취미도, 전공 실력도 함께 키울 수 있는 동아리에 가입해 보세요!</p>
-      </div>
-
-      <div class="club-grid">
-        <div class="club-card reveal"><span class="club-emoji">🤖</span><h3>로보트 연구회</h3><p>로봇 제작 및 대회 참가</p></div>
-        <div class="club-card reveal"><span class="club-emoji">⚽</span><h3>축구부</h3><p>학교 대표 운동부 · 전국 대회 출전</p></div>
-        <div class="club-card reveal"><span class="club-emoji">🎵</span><h3>밴드부</h3><p>학교 축제 및 지역 공연</p></div>
-        <div class="club-card reveal"><span class="club-emoji">🎮</span><h3>e스포츠 동아리</h3><p>게임 대회 및 친목 활동</p></div>
-        <div class="club-card reveal"><span class="club-emoji">📷</span><h3>사진부</h3><p>학교 행사 기록 · 사진 전시회</p></div>
-        <div class="club-card reveal"><span class="club-emoji">🔧</span><h3>기능 마스터반</h3><p>기능경기대회 준비 선발 과정</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== FAQ ===== -->
-  <section class="section" id="faq">
-    <div class="container container-narrow">
-      <div class="section-head reveal">
-        <span class="section-tag">FAQ</span>
-        <h2 class="section-title">자주 묻는 질문</h2>
-      </div>
-
-      <div class="faq-list">
-        <details class="faq-item reveal">
-          <summary>교복은 어디서 사나요?</summary>
-          <p>입학 전 학교에서 안내하는 지정 업체를 통해 주문합니다. 입학식 전 오리엔테이션 때 자세한 안내가 이루어지니 공지를 확인해 주세요.</p>
-        </details>
-        <details class="faq-item reveal">
-          <summary>중학교 때 기계 관련 공부를 안 했는데 따라갈 수 있나요?</summary>
-          <p>걱정하지 마세요! 1학년 때 기초 과정부터 차근차근 배우며, 실습 중심 수업으로 누구나 쉽게 시작할 수 있습니다.</p>
-        </details>
-        <details class="faq-item reveal">
-          <summary>대학 진학도 가능한가요?</summary>
-          <p>네. 취업과 진학을 모두 지원합니다. 산업기사 자격 취득 시 대학 입시 가점·특전이 있으며, 매년 대학 진학생도 배출하고 있습니다.</p>
-        </details>
-        <details class="faq-item reveal">
-          <summary>금연·금전 등 생활 규정은 어떻게 되나요?</summary>
-          <p>흡연·음주·전자담배는 절대 금지이며, 학교 내 전자기기 사용은 담임 선생님 안내에 따릅니다. 자세한 사항은 학생생활규정을 참고하세요.</p>
-        </details>
-        <details class="faq-item reveal">
-          <summary>학비·급식비는 얼마인가요?</summary>
-          <p>고교 무상교육 정책에 따라 수업료는 무상이며, 급식비만 학기 초에 납부합니다. 세부 금액은 입학 전 안내문을 확인해 주세요.</p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 오시는 길 / 연락처 ===== -->
-  <section class="section section-dark" id="contact">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="section-tag">CONTACT</span>
-        <h2 class="section-title">오시는 길 · 연락처</h2>
-      </div>
-
-      <div class="contact-grid">
-        <div class="contact-card reveal">
-          <h3>📍 주소</h3>
-          <p>부산광역시 사하구 감전동 (실제 주소는 학교 공지 확인)</p>
-          <p class="contact-sub">지하철 1호선 <strong>하단역</strong>에서 도보 · 버스 이용</p>
-        </div>
-        <div class="contact-card reveal">
-          <h3>📞 연락처</h3>
-          <ul>
-            <li>교무실: 051-XXX-XXXX</li>
-            <li>행정실: 051-XXX-XXXX</li>
-            <li>입학 문의: 051-XXX-XXXX</li>
-          </ul>
-        </div>
-        <div class="contact-card reveal">
-          <h3>🔗 관련 링크</h3>
-          <ul>
-            <li><a href="#" class="link">학교 공식 홈페이지</a></li>
-            <li><a href="#" class="link">알리미(가정통신문)</a></li>
-            <li><a href="#" class="link">학교알리미(교육부)</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 푸터 ===== -->
   <footer class="footer">
-    <div class="container">
-      <p>⚙ 부산기계공업고등학교 · 신입생을 진심으로 환영합니다</p>
-      <p class="footer-sub">본 페이지는 신입생 안내용 데모 홈페이지입니다.</p>
+    <div class="container footer-container">
+      <div class="footer-info">
+        <p><strong>부산기계공업고등학교 (국립)</strong> | 부산 해운대구 해운대로 569</p>
+        <p>대표전화: 051-741-5111 | 홈페이지: <a href="http://bmt.hs.kr" target="_blank" style="color: #60a5fa;">http://bmt.hs.kr</a></p>
+        <p class="copyright">Copyright © 부산기계공업고등학교 All Rights Reserved.</p>
+      </div>
     </div>
   </footer>
-
-  <button class="to-top" id="toTop" aria-label="맨 위로">↑</button>
 
   <script src="script.js"></script>
 </body>
